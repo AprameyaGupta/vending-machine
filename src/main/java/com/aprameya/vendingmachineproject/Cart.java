@@ -47,10 +47,9 @@ public class Cart {
 			} else {
 				if(productList.get(prod) > count) {
 					productList.put(prod, productList.get(prod) - count);
-					System.out.println(count + " " + prod.getProductName() + " has been removed.");
 				} else if(productList.get(prod) == count) {
 					productList.remove(prod);
-					System.out.println(prod.getProductName() + " has been removed from cart.");
+					System.out.println(prod.getProductName() + " " + count);
 				}
 			}
 		} 

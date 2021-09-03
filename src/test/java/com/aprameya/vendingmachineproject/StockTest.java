@@ -12,6 +12,7 @@ public class StockTest {
 	public void testRemoveStock() throws InvalidDataException, NotEnoughStockException, ProductUnavailableException {
 		Stock stock = Stock.init();
 		Product p = new Product(1, "Kurkure", 10);
+		stock.addStock(p, 10);
 		stock.removeStock(p, 1);
 		assertEquals(9, stock.getProductList().get(p).intValue());
 	}
@@ -20,7 +21,6 @@ public class StockTest {
 	public void testRemoveStock_WithProductUnavailableException() throws InvalidDataException, NotEnoughStockException, ProductUnavailableException {
 		Stock stock = Stock.init();
 		Product p = new Product(1, "Kurkure", 10);
-		stock.addStock(p, 10);
 		Product p1 = new Product(2, "Doritos", 10);
 		stock.removeStock(p1, 1);
 	}
@@ -37,7 +37,6 @@ public class StockTest {
 	public void testRemoveStock_WithNotEnoughStockException() throws InvalidDataException, NotEnoughStockException, ProductUnavailableException {
 		Stock stock = Stock.init();
 		Product p = new Product(1, "Kurkure", 10);
-		stock.addStock(p, 10);
 		stock.removeStock(p, 20);
 	}
 }

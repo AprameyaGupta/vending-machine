@@ -56,11 +56,9 @@ public class VendingMachineOperation {
 				System.out.println("Enter Quantity: ");
 				int count = sc.nextInt();
 				Product foundProd = null;
-				int quantity = 0;
 				for(Map.Entry<Product, Integer> p : vMachine.stock.getProductList().entrySet()) {
 					if(pid == p.getKey().getProductId()) {
 						foundProd = p.getKey();
-						quantity = p.getValue();
 						break;
 					}
 				}
@@ -82,23 +80,12 @@ public class VendingMachineOperation {
 				for(Map.Entry<Product, Integer> e: cart.getProductList().entrySet()) {
 					grossTotal += e.getKey().getProductPrice() * e.getValue();
 				}
-				System.out.println("Gross Total Amount (To be paid): " + grossTotal + "\nEnter Amount: ");
+				System.out.println("Gross Total Amount (To be paid): Rs. " + grossTotal + "\nEnter Amount: ");
 				double amt = sc.nextDouble();
-				System.out.println(amt);
 				if(amt >= grossTotal) {
 					account.addMoney(grossTotal);
+					System.out.println("Following products has been dispatched. Kindly, collect them..");
 					for(Map.Entry<Product, Integer> entry: cart.getProductList().entrySet()) {
-						grossTotal += entry.getKey().getProductPrice() * entry.getValue();
-						try {
-							vMachine.stock.removeStock(entry.getKey(), entry.getValue());
-						} catch (NotEnoughStockException e2) {
-							System.err.println("Not enough stock!!");
-						} catch (ProductUnavailableException e2) {
-							System.err.println("Regret!! Product is currently unavailable. Kindly, select from some other options.");
-						} catch (InvalidDataException e2) {
-							System.err.println("Enter valid quantity!!");
-						}
-						
 						try {
 							cart.removeProduct(entry.getKey(), entry.getValue());
 						} catch (ProductUnavailableException e1) {
@@ -109,12 +96,13 @@ public class VendingMachineOperation {
 						
 					}
 					double change = amt - grossTotal;
-					System.out.println(change + " has been returned. Kindly, collect it..");
-				}
+					if(change > 0) System.out.println("Change Returned: Rs. " + change);
+					System.out.println("Enjoy your snacks!!");
+				} else System.err.println("Please enter enough amount!");
 			} else if(input1 == 'q') break;
 			  else System.err.println("Please enter a valid input!!");
 		}
-		System.out.println("Bbye!! Come back again...");
+		System.out.println("Bbye!! \"Happy Meal\"\nCome back again...");
 		sc.close();
 	}
 }

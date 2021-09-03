@@ -63,7 +63,7 @@ public class Stock {
 					throw new NotEnoughStockException("Not enough stock!!");
 				} else {
 					productList.put(prod, productList.get(prod) - count);
-					System.out.println(count + " " + prod.getProductName() + " has been dispatched.\nEnjoy your snacks!!");
+					System.out.println(prod.getProductName() + " " + count);
 				}
 			}
 		} 
